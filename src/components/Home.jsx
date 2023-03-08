@@ -1,25 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import Chart from 'components/Chart';
+import ChartYear from 'components/ChartYear';
+import ChartMon from './ChartMon';
 import { payment } from 'api/payment';
 
 function Home() {
   const [chartData, setChartData] = useState('');
 
   useEffect(() => {
-    const year = {
-      search_year: 2021,
-      // search_month: 2,
-    };
+    async function yearData() {
+      const years = [2018, 2019, 2020, 2021];
+      const data = [];
 
-    payment(year).then((res) => {
-      setChartData(res);
-    });
+      try {
+        for (const year of years) {
+          const res = await payment({ search_year: year });
+          data.push(res.data.Payment);
+        }
+        setChartData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    yearData();
   }, []);
 
   return (
     <>
       <h3>애드팝콘 기간, 앱, 캠페인 별 성과</h3>
-      <Chart chartData={chartData} />
+      <ChartYear chartData={chartData} />
+      <ChartMon chartData={chartData} />
     </>
   );
 }
