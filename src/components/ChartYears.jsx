@@ -27,7 +27,7 @@ export const options = {
     legend: { display: false },
     title: {
       display: true,
-      text: '연도별 총 수익',
+      text: '연도별 총 광고 수익 데이터',
       font: {
         size: 20,
       },
@@ -35,14 +35,14 @@ export const options = {
   },
 };
 
-const Chart = ({ chartData }) => {
-  const [revData, setRevData] = useState();
+const ChartYears = ({ totalData }) => {
+  const [chartData, setChartData] = useState();
 
   useEffect(() => {
-    if (!chartData) {
+    if (!totalData) {
       return;
     }
-    const totalRev = chartData.map((x) => x.Revenue);
+    const totalRev = totalData.map((x) => x.Revenue);
 
     const data = {
       labels: ['2018', '2019', '2020', '2021'],
@@ -55,19 +55,19 @@ const Chart = ({ chartData }) => {
         },
       ],
     };
-    setRevData(data);
-  }, []);
+    setChartData(data);
+  }, [totalData]);
 
   return (
     <StChartWrapper>
-      {revData && <Bar data={revData} options={options} />}
+      {chartData && <Bar data={chartData} options={options} />}
     </StChartWrapper>
   );
 };
 
-export default Chart;
+export default ChartYears;
 
 const StChartWrapper = styled.div`
-  width: 50%;
+  width: 30%;
   height: 50vh;
 `;
