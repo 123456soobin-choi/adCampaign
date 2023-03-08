@@ -36,9 +36,12 @@ const ChartYears = ({ totalData }) => {
       for (let j = 0; j < 12; j++) {
         const appNames = apps[i][j].map((x) => x.AppName);
 
-        if (appNames.includes('[OP&QA] 애드팝콘 캠페인 테스터_iOS(라이브)')) {
-          console.log(apps[i][j]);
-          console.log(apps[i][j].map((x) => x.Revenue));
+        for (let k = 0; k < appNames.length; k++) {
+          // if (appNames[k] === '[Dev] Mobile Test Jinuya') {
+          //   const appRev = apps[i][j].map((x) => x.Revenue);
+          //   console.log(apps);
+          //   console.log(appRev);
+          // }
         }
       }
     }
